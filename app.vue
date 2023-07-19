@@ -12,8 +12,9 @@
                 </p>
                 <div class="flex flex-col gap-y-5 w-full">
                     <label
-                        class="border-2 rounded p-2 cursor-pointer text-center"
+                        class="border-2 rounded p-2 cursor-auto text-center"
                         :class="{
+                            'cursor-pointer': selectedValue === '',
                             'text-neutral-100 bg-green-400 border-green-400':
                                 selectedValue !== '' &&
                                 index === data[currId].answer,
@@ -21,7 +22,6 @@
                                 selectedValue !== '' &&
                                 index === selectedValue &&
                                 index !== data[currId].answer,
-                            'cursor-default': selectedValue !== '',
                         }"
                         :for="index"
                         v-for="(item, index) in data[currId].variants"
@@ -55,13 +55,13 @@
                 v-else
                 class="flex flex-col items-center justify-center gap-y-10 h-full text-center"
                 id="result">
-                <div class="sm:text-2xl  lg:text-3xl mt-24">
+                <div class="sm:text-2xl lg:text-3xl mt-24">
                     <p>Кол-во Правильных ответов</p>
                     <span class="text-red-400">{{ correctAnswers }}</span>
                 </div>
-                <div class="sm:text-2xl  lg:text-3xl">
+                <div class="sm:text-2xl lg:text-3xl">
                     <p>Кол-во Неправильных ответов</p>
-										<span class="text-green-400">{{ wrongAnswers }}</span>
+                    <span class="text-green-400">{{ wrongAnswers }}</span>
                 </div>
                 <button
                     class="mt-auto border-2 py-1 px-2 rounded"
@@ -85,25 +85,29 @@ let wrongAnswers = ref(0);
 
 const data = reactive([
     {
-        question:
-            "hui budesh??? hui budesh? hui budesh? hui budesh? hui budesh?",
-        variants: { a: "da", b: "net", c: "ne znau", d: "sam hui" },
+        question: "Eighteen thousandths, written as a decimal, is:",
+        variants: { a: "0.0018", b: "0.018", c: "0.18", d: "0.000018" },
+        answer: "a",
+    },
+    {
+        question: "The next number in the sequence 1, 3, 6, 10, is:",
+        variants: {
+            a: "12",
+            b: "13",
+            c: "14",
+            d: "15",
+        },
         answer: "d",
     },
     {
-        question: "V chem ranitsa mejdu utkoi???",
+        question: "JSON stands for",
         variants: {
-            a: "a???",
-            b: "da cht za huina",
-            c: "ne znau",
-            d: "sam pizda",
+            a: "Java Standard Output Network",
+            b: "JavaScript Object Notation",
+            c: "avaScript Output Name",
+            d: "Java Source Open Network",
         },
         answer: "b",
-    },
-    {
-        question: "god vipuska green elephant???",
-        variants: { a: "1932", b: "24453", c: "1883", d: "1999" },
-        answer: "d",
     },
 ]);
 
