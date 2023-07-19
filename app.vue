@@ -6,21 +6,22 @@
             <div
                 v-if="toggleTest"
                 id="questions"
-                class="flex flex-col items-center justify-between h-full">
-                <p class="text-white text-2xl text-center">
+                class="flex flex-col items-center gap-y-10 h-full">
+                <p class="text-white sm:text-2xl text-center">
                     {{ data[currId].question }}
                 </p>
-                {{ selectedValue }}
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-y-5 w-full">
                     <label
+                        class="border-2 rounded p-2 cursor-pointer text-center"
                         :class="{
-                            'text-green-400':
+                            'text-neutral-100 bg-green-400 border-green-400':
                                 selectedValue !== '' &&
                                 index === data[currId].answer,
-                            'text-red-400':
+                            'bg-red-400 text-neutral-100 border-red-400':
                                 selectedValue !== '' &&
                                 index === selectedValue &&
                                 index !== data[currId].answer,
+                            'cursor-default': selectedValue !== '',
                         }"
                         :for="index"
                         v-for="(item, index) in data[currId].variants"
@@ -36,28 +37,37 @@
                     </label>
                 </div>
                 <button
+                    class="mt-auto border-2 py-1 px-2 rounded"
                     id="next"
                     @click="nextQuestion"
                     v-if="selectedValue !== '' && currId < count">
                     next question
                 </button>
                 <button
+                    class="mt-auto border-2 py-1 px-2 rounded"
                     id="finish"
                     @click="showFinish"
                     v-else-if="selectedValue !== '' && currId === count">
                     finish
                 </button>
             </div>
-            <div v-else id="result">
-                <div>
-                    <p>Кол-твло Правильных ответов</p>
-                    {{ correctAnswers }}
+            <div
+                v-else
+                class="flex flex-col items-center justify-center gap-y-10 h-full text-center"
+                id="result">
+                <div class="sm:text-2xl  lg:text-3xl mt-24">
+                    <p>Кол-во Правильных ответов</p>
+                    <span class="text-red-400">{{ correctAnswers }}</span>
                 </div>
-                <div>
-                    <p>Кол-твло Неправильных ответов</p>
-                    {{ wrongAnswers }}
+                <div class="sm:text-2xl  lg:text-3xl">
+                    <p>Кол-во Неправильных ответов</p>
+										<span class="text-green-400">{{ wrongAnswers }}</span>
                 </div>
-                <button @click="reset">reset</button>
+                <button
+                    class="mt-auto border-2 py-1 px-2 rounded"
+                    @click="reset">
+                    reset
+                </button>
             </div>
         </div>
     </main>
@@ -75,7 +85,8 @@ let wrongAnswers = ref(0);
 
 const data = reactive([
     {
-        question: "hui budesh???",
+        question:
+            "hui budesh??? hui budesh? hui budesh? hui budesh? hui budesh?",
         variants: { a: "da", b: "net", c: "ne znau", d: "sam hui" },
         answer: "d",
     },
